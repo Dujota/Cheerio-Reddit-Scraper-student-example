@@ -13,4 +13,20 @@ console.log(`<------------------------------------------------>
 
 axios.get('https://old.reddit.com/r/webdev/').then(function(response) {
   const $ = cheerio.load(response.data);
+
+  const results = [];
+
+  $('p.title').each(function(i, element) {
+    const title = $(element).text();
+    const link = $(element)
+      .children()
+      .attr('href');
+
+    results.push({
+      title,
+      link,
+    });
+  });
+
+  console.log(results);
 });
